@@ -3,19 +3,19 @@
 ## Project overview:
 This project builds a **regression model** to predict Parkinson’s disease severity from voice-based acoustic features.
 
-## The problem:
+### The problem:
 Parkinson disease progression needs continuous monitoring.
 Traditionnal clinical assessments are infrequent and resource-intensive.
 
-## Objective:
+### Objective:
 Predict UPDRS (Unified Parkinson's Disease Rating Scale) severity score (0-176) from vocal measurements using machine learning.
 
-## Why voice analysis?
+### Why voice analysis?
 - Non invasive monitoring
 - Can be done remotely
 - Early detection of symptom changes
 
-## Impact
+### Impact
 Early diagnosis, non-invasive, non-invasive and accessible
 
 -----
@@ -58,9 +58,6 @@ Early diagnosis, non-invasive, non-invasive and accessible
 - Performed exploratory data analysis (EDA)
 - Created correlation heatmaps to understand feature relationships
 
-### Handling Data Leakage
-To avoid data leakage caused by multiple recordings per patient, the dataset was split at the subject level using GroupShuffleSplit
-
 ### Feature Engineering and Selection
 - Used all 16 voice features
 - Applied **correlation analysis** to understand feature relationships
@@ -100,25 +97,104 @@ To ensure robust performance evaluation.
 ### Model performance
 
 #### Training set performance:
-- **MAE:** ###
-- **MSE:** ###
-- **RMSE:** ###
-- **R²:** ###
+- **MAE:** 2.42
+- **MSE:** 10.69
+- **RMSE:** 3.27
+- **R²:** 0.90
+
+**Results:**
+Our model predicts that a patient with minimal voice pathology would have a relatively low total UPDRS score of approximately 8.78.
+
+### Hyperparameter Tuning and Model Optimization
+
+#### Linear Regression 
+The regression intercept indicates a baseline Total UPDRS score in the mild symptom range, suggesting that minimal voice impairment is associated with low overall Parkinson’s severity.
 
 
-#### Test set performance:
-- **MAE:** ###
-- **R²:** ###
+#### Cross-Validation (Model K Fold)
 
-### Key findings:
-Catter plot showing correlation between actual and predicted severity scores. 
+**Results:**
 
-**MAE interpretation:**
-On average, predictions are within 8.27 points of actual UPDRS.
-Given the 0-176 scale, this represents ~4.7% error - a reasonable baseline performance.
+R2 scores for each fold:
+0.91381079
+0.90167049
+0.91176976
+0.91351376
+0.90381669
 
-**R² interpretation:**
+**Mean R2:** 0.909
+**Standard deviation:** 0.005
 
-Model explains 7.9% of variance in severity.
-Low R² indicates high disease complexity - many factors beyond voice affect severity
+**Interpretation:**
+The model performs consistently well across different subsets of patients.
+
+
+#### Random Forest 
+
+**Results:**
+MAE ≈ 0.13
+R² ≈ 0.999
+
+**Interpretation:**
+Our model performed extremely well.
+We achieved:
+Very low error
+R² score close to 1
+
+The error is clinically negligible and the model almost perfectly reproduces the real Total UPDRS values.
+
+-----
+
+## Conclusion
+
+### Key findings
+
+**Chalenges:**
+- Complex, multifactorial disease → voice explains only part
+- Small number of patients (42) → limited variability.
+
+**Learnings:**
+- Simple models are a good baseline
+- Ensemble models can improve performance.
+
+Voice data can help predict Parkinson’s severity but is not sufficient alone.
+Random Forest improved predictions over Linear Regression, confirming non-linear patterns exist in the data.
+
+
+### Real-World Application and Impact
+
+#### Practical Applications
+
+- Accessible pre-screening tool
+- Telemedicine / remote diagnosis
+- Disease progression monitoring
+
+#### Potential Impact
+
+- Early detection enables better treatment
+- Cost reduction in healthcare
+- Increased accessibility for patients
+
+#### Ethical Considerations & Limitations
+
+Limited dataset size (197 samples)
+Requires clinical validation
+Complements, not replaces, medical diagnosis
+
+### Future Work and Improvements
+
+#### Areas for Expansion
+
+- Collect larger, more diverse dataset
+- Experiment with Deep Learning models (Neural Networks)
+- Integrate additional biomarkers (gait analysis, handwriting)
+
+#### Potential Improvements
+
+- Mobile application for regular screening
+- Longitudinal patient tracking system
+- Multi-modal diagnostic approach
+
+
+
 
